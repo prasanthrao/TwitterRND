@@ -22,37 +22,11 @@ import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.User;
 
-public class Fetcher {
+public class UserFollowerFetcher {
 
 	private static final int FOLLOWERS_LIMIT = 1000;
 
-	public static void main(String[] args) throws UnknownHostException, TwitterException, InterruptedException {
-		DBAccess.setDbName("prasanthgrao");
-		HashSet<Long> currentLevel = new HashSet<>();
-		Twitter twitter = new TwitterFactory(AccessTokenUtil.getConfig()).getInstance();
-//		currentLevel.add((long) 39703979);
-		currentLevel.add(twitter.getId());
-		List<Long> nextLevel = new LinkedList<Long>();
-		for (int level = 1; level <= 2; level++) {
-			System.out.println("Main: Iteration " + level + ".users in level:" + currentLevel.size());
-			for (Long id : currentLevel) {
-				System.out.println("Main: Fetching data for user ID:" + id);
-				List<Long> filteredUserListOnStatusCount = getUserFollwers(id);
-				if (filteredUserListOnStatusCount == null)
-					continue;
-				System.out.println(
-						"Main: No of followers whose followers < 100 : " + filteredUserListOnStatusCount.size());
-				nextLevel.addAll(filteredUserListOnStatusCount);
-			}
-			System.out.println(
-					"Main: Fecting for Iteration " + level + " completed. Users in next level:" + nextLevel.size());
-			currentLevel.clear();
-			currentLevel.addAll(nextLevel);
-			nextLevel.clear();
-		}
-	}
-
-	private static List<Long> getUserFollwers(long twitterUserId)
+	public static List<Long> getUserFollwers(long twitterUserId)
 			throws UnknownHostException, TwitterException, InterruptedException {
 		Twitter twitter = new TwitterFactory(AccessTokenUtil.getConfig()).getInstance();
 		List<Long> filteredUserListOnFollowerCount = new ArrayList<Long>();
