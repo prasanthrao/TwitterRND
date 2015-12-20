@@ -1,6 +1,8 @@
 package com.avishkar.db;
 
 import java.net.UnknownHostException;
+import java.util.LinkedList;
+import java.util.List;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCursor;
@@ -32,6 +34,15 @@ public class DBUser extends DBAccess {
 		if(cursor.hasNext()){
 			BasicDBObject obj = (BasicDBObject) cursor.next();
 			return (int) obj.get("followersCount");
+		}
+		return 0;
+	}
+
+	public static int getFriendsCount(long id) throws UnknownHostException {
+		DBCursor cursor = getUser(id);
+		if(cursor.hasNext()){
+			BasicDBObject obj = (BasicDBObject) cursor.next();
+			return (int) obj.get("friendsCount");
 		}
 		return 0;
 	}

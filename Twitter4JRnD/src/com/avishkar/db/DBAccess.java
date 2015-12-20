@@ -46,7 +46,7 @@ public class DBAccess {
 		getDBConnection("Status").insert(dbObject);
 	}
 	
-	public static boolean ifFollowerExists(long id) throws UnknownHostException{
+	public static boolean ifExists(long id) throws UnknownHostException{
 		BasicDBObject fields = new BasicDBObject();
 		fields.put("id",id);
 		DBCursor cursor = getDBConnection("Followers").find(fields);
@@ -61,10 +61,10 @@ public class DBAccess {
 	}
 	
 	public static void main(String args[]) throws UnknownHostException{
-		System.out.println(ifFollowerExists(3097759151L));
+		System.out.println(ifExists(3097759151L));
 	}
 	
-	public static void insertFollowers(String json) throws UnknownHostException {
+	public static void insert(String json) throws UnknownHostException {
 		DBObject dbObject = (DBObject)JSON.parse(json);
 		getDBConnection("Followers").insert(dbObject);
 	}

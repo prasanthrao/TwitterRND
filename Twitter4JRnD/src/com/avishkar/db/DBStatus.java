@@ -21,4 +21,11 @@ public class DBStatus extends DBAccess {
 		return cursor.hasNext();
 	}
 
+	public static boolean ifUserExists(long id) throws UnknownHostException{
+		BasicDBObject fields = new BasicDBObject();
+		fields.put("user.id",id);
+		DBCursor cursor = getDBConnection("Status").find(fields);
+		return cursor.hasNext();
+	}
+
 }

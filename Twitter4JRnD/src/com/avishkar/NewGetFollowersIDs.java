@@ -110,7 +110,7 @@ public final class NewGetFollowersIDs {
 
 			followerJSON.addProperty("id", twitterUserId);
 			followerJSON.addProperty("followers", gson.toJson(followerIDs.getIDs()));
-			DBAccess.insertFollowers(gson.toJson(followerJSON));
+			DBAccess.insert(gson.toJson(followerJSON));
 
 			System.out.println("Current Followers Fetched Size:" + followerIDs.getIDs().length);
 			// Filtering for influential user
