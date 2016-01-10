@@ -26,7 +26,7 @@ public class UserFriendsFetcher {
 	private static final int friendS_LIMIT = 250;
 
 	public static void main(String[] args) throws UnknownHostException, IllegalStateException, TwitterException {
-		DBAccess.setDbName("prasanthgrao");
+		DBAccess.setDbName("suhasn");
 		Twitter twitter = new TwitterFactory(AccessTokenUtil.getConfig()).getInstance();
 		List<Long> followers = DBFollowers.getFollowers(twitter.getId());
 		System.out.println("Followers fetched:" + followers.size());

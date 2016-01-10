@@ -2,13 +2,9 @@ package com.avishkar.twitter;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 
 import com.avishkar.AccessTokenUtil;
-import com.avishkar.db.DBAccess;
-//import com.avishkar.db.DBAccess;
 import com.avishkar.db.DBFollowers;
 import com.avishkar.db.DBUser;
 import com.google.gson.Gson;
