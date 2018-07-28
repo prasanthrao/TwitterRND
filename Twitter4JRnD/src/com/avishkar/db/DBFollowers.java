@@ -9,7 +9,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
 
-public class DBFollowers extends DBAccess {
+public class DBFollowers extends DataAccess {
 
 	public static void insertFollowers(String json) throws UnknownHostException {
 		DBObject dbObject = (DBObject)JSON.parse(json);
@@ -27,7 +27,7 @@ public class DBFollowers extends DBAccess {
 	public static List<Long> getFollowers(long id) throws UnknownHostException {
 		List<Long> userIds = new LinkedList<Long>();
 		if (!ifFollowerExists(id))
-			return null;
+			return userIds;
 		BasicDBObject fields = new BasicDBObject();
 		fields.put("id", id);
 		DBCursor cursor = getDBConnection("Followers").find(fields);

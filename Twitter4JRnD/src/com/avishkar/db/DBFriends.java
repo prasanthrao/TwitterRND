@@ -9,7 +9,7 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.util.JSON;
 
-public class DBFriends extends DBAccess {
+public class DBFriends extends DataAccess {
 
 	public static void insertFriends(String json) throws UnknownHostException {
 		DBObject dbObject = (DBObject)JSON.parse(json);
