@@ -1,8 +1,11 @@
 package com.avishkar.db;
 
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import com.avishkar.twitter.data.UserData;
 import com.mongodb.BasicDBObject;
@@ -14,7 +17,7 @@ import twitter4j.TwitterException;
 import twitter4j.TwitterObjectFactory;
 import twitter4j.User;
 
-public class DBUser extends DBAccess {
+public class DBUser extends DataAccess {
 
 	public static void insertUser(String jsonStatus) throws UnknownHostException {
 		DBObject dbObject = (DBObject) JSON.parse(jsonStatus);
@@ -74,6 +77,41 @@ public class DBUser extends DBAccess {
 		}
 		return null;
 	}
+	
+	public static List<UserData> getAllUserData() throws UnknownHostException{
+		DBCursor cursor = getDBConnection("User").find();
+		List<UserData> userDataList = new ArrayList<UserData>();
+		while(cursor.hasNext()){
+			UserData userData = parseToUserData(cursor);
+			userDataList.add(userData);
+		}
+		return userDataList;
+	}
+	
+	public static Map<Long,UserData> getMappedUserData() throws UnknownHostException{
+		DBCursor cursor = getDBConnection("User").find();
+		Map<Long, UserData> userDataList = new HashMap<Long,UserData>();
+		while(cursor.hasNext()){
+			UserData userData = parseToUserData(cursor);
+			userDataList.put(userData.getUserID(), userData);
+		}
+		return userDataList;
+	}
+
+	private static UserData parseToUserData(DBCursor cursor) {
+		DBObject user = cursor.next();
+		UserData userData = new UserData();
+		userData.setFollowersCount((int) user.get("followersCount"));
+		userData.setScreenName((String) user.get("screenName"));
+		userData.setFavCount((int) user.get("favouritesCount"));
+		userData.setFriendsCount((int) user.get("friendsCount"));
+		userData.setTweetCount((int) user.get("statusesCount"));
+		userData.setListedCount((int) user.get("listedCount"));
+		userData.setProtected((boolean) user.get("isProtected"));
+		userData.setTweetCount((int) user.get("statusesCount"));
+		userData.setUserID(Long.parseLong(user.get("id").toString()));
+		return userData;
+	}
 
 	public static boolean ifUserExists(long id) throws UnknownHostException {
 		DBCursor cursor = getDBUser(id);
@@ -96,6 +134,24 @@ public class DBUser extends DBAccess {
 			return (int) obj.get("friendsCount");
 		}
 		return 0;
+	}
+
+	public static int getStatusCount(long id) throws UnknownHostException {
+		DBCursor cursor = getDBUser(id);
+		if(cursor.hasNext()){
+			BasicDBObject obj = (BasicDBObject) cursor.next();
+			return (int) obj.get("statusesCount");
+		}
+		return 0;
+	}
+	
+	public static boolean isPrivate(long id) throws UnknownHostException {
+		DBCursor cursor = getDBUser(id);
+		if(cursor.hasNext()){
+			BasicDBObject obj = (BasicDBObject) cursor.next();
+			return (boolean) obj.get("isProtected");
+		}
+		return false;
 	}
 
 }
