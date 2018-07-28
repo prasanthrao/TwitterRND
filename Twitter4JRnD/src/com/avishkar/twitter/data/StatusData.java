@@ -22,6 +22,10 @@ public class StatusData implements Serializable {
 
 	private long userID;
 	
+	private String tweet;
+	
+	private String language;
+	
 	public long getUserID() {
 		return userID;
 	}
@@ -65,6 +69,22 @@ public class StatusData implements Serializable {
 
 	public void setFavoriteCount(int favoriteCount) {
 		this.favoriteCount = favoriteCount;
+	}
+
+	public String getTweet() {
+		return tweet;
+	}
+
+	public void setTweet(String tweet) {
+		this.tweet = tweet;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 
 }

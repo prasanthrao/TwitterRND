@@ -10,6 +10,10 @@ public class UserData {
 	
 	private long tweetCount;
 	
+	private int favCount;
+	
+	private int listedCount;
+	
 	private long userID;
 	
 	private boolean isProtected = false;
@@ -60,6 +64,22 @@ public class UserData {
 
 	public void setProtected(boolean isProtected) {
 		this.isProtected = isProtected;
+	}
+
+	public long getListedCount() {
+		return listedCount;
+	}
+
+	public void setListedCount(int listedCount) {
+		this.listedCount = listedCount;
+	}
+
+	public long getFavCount() {
+		return favCount;
+	}
+
+	public void setFavCount(int favCount) {
+		this.favCount = favCount;
 	}
 	
 	
